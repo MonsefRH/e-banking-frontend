@@ -1,0 +1,14 @@
+<div class="callback-container">
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Connexion en cours...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <mat-icon color="warn">error</mat-icon>
+    <p>{{ errorMessage }}</p>
+    <button mat-raised-button color="primary" (click)="retryLogin()">
+      Réessayer
+    </button>
+  </div>
+</div>

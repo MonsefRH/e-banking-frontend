@@ -1,0 +1,79 @@
+<div class="min-h-screen relative flex items-center justify-center overflow-hidden">
+  <!-- Video Background -->
+  <video 
+    class="absolute top-0 left-0 w-full h-full object-cover" 
+    autoplay 
+    loop 
+    muted 
+    playsinline
+  >
+    <source src="assets/videos/vd_back.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Blurred Overlay -->
+  <div class="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm"></div>
+
+  <!-- Error Container -->
+  <div class="relative bg-white bg-opacity-95 p-8 rounded-lg shadow-2xl w-full max-w-md z-10 animate-fadeIn">
+    <!-- Error Icon -->
+    <div class="flex justify-center mb-6">
+      <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center">
+        <svg class="w-10 h-10 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4v.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Error Title -->
+    <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">{{ errorMessage }}</h2>
+
+    <!-- Error Code -->
+    <p *ngIf="errorCode" class="text-center text-gray-500 text-sm mb-4">
+      Code d'erreur: {{ errorCode }}
+    </p>
+
+    <!-- Error Details -->
+    <p class="text-center text-gray-600 mb-8 leading-relaxed">
+      {{ errorDetails }}
+    </p>
+
+    <!-- Suggestions -->
+    <div class="bg-blue-50 border border-blue-200 rounded-md p-4 mb-6">
+      <p class="text-blue-800 text-sm font-medium mb-2">Suggestions :</p>
+      <ul class="text-blue-700 text-sm space-y-1 list-disc list-inside">
+        <li>Vérifiez votre connexion Internet</li>
+        <li>Vérifiez vos identifiants</li>
+        <li>Réessayez dans quelques instants</li>
+        <li>Contactez l'administrateur si le problème persiste</li>
+      </ul>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="space-y-3">
+      <button 
+        type="button"
+        (click)="retry()" 
+        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-200 flex items-center justify-center gap-2"
+      >
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+        </svg>
+        Réessayer
+      </button>
+
+      <button 
+        type="button"
+        (click)="goBackToLogin()" 
+        class="w-full bg-gray-200 text-gray-800 py-2 px-4 rounded-md font-medium hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition duration-200"
+      >
+        Retour à la connexion
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <p class="text-center text-gray-600 text-xs mt-6">
+      Si le problème persiste, <a href="mailto:support@ebanking.com" class="text-blue-600 hover:underline">contactez le support</a>
+    </p>
+  </div>
+</div>
