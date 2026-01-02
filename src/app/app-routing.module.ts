@@ -23,11 +23,13 @@ import { AccountComponent } from './client-features/account/account.component';
 import { RechargeComponent } from './client-features/recharge/recharge.component';
 import { ClientsAccountsComponent } from './agent-feature/clients-accounts/clients-accounts.component';
 import { CallbackComponent } from './callback/callback.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/failed', component: LoginFailedComponent },
   { path: 'login/callback', component: CallbackComponent },
+  { path: 'register', component: RegistrationComponent },  
   {
     path: 'agent',
     component: AgentComponent,

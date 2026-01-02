@@ -107,7 +107,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/agent']);
     } else if (roles.includes('ADMIN')) {
       this.router.navigate(['/admin-dashboard']);
-    } else if (roles.includes('CLIENT')) {
+    } else if (roles.includes('CLIENT') || roles.includes('CUSTOMER')) {
       this.router.navigate(['/client-dashboard/home']);
     } else {
       this.errorMessage = 'Rôle non reconnu. Veuillez contacter l\'administrateur.';

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -12,6 +12,23 @@ interface User {
   firstName?: string;
   lastName?: string;
   email?: string;
+}
+
+interface RegisterResponse {
+  email: string;
+  message: string;
+}
+
+interface RegisterRequest {
+  email: string;
+  password: string;
+  role: string;
+  name?: string;
+  cin?: string;
+  address?: string;
+  phone?: string;
+  agentCode?: string;
+  department?: string;
 }
 
 @Injectable({
@@ -121,9 +138,24 @@ export class AuthService {
             localStorage.setItem('roles', JSON.stringify(response.roles));
           }
           
-          this.userSubject.next(response);
+          this.userSubject.asObservable();
         })
       );
+  }
+
+  // Nouvelle méthode pour l'inscription
+  register(request: RegisterRequest): Observable<RegisterResponse> {
+    console.log('📝 Registering new user...');
+    
+    return this.http.post<RegisterResponse>(
+      `${environment.LoginServiceBaseUrl}/auth/register`,
+      request,
+      { withCredentials: true }
+    ).pipe(
+      tap((response) => {
+        console.log('✓ Registration successful:', response);
+      })
+    );
   }
 
   getToken(): string | null {

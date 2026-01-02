@@ -46,7 +46,7 @@ import { ClientsAccountsComponent } from './agent-feature/clients-accounts/clien
 import { LoginFailedComponent } from './login/login-failed/login-failed.component';
 import { CallbackComponent } from './callback/callback.component';
 import { CredentialsInterceptor } from './interceptors/credentials.interceptor';
-
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +75,8 @@ import { CredentialsInterceptor } from './interceptors/credentials.interceptor';
     AccountComponent,
     RechargeComponent,
     ClientsAccountsComponent,
-    CallbackComponent
+    CallbackComponent,
+    RegistrationComponent
   ],
   imports: [
 
