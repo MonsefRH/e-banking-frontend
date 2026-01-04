@@ -7,6 +7,7 @@ export const environment = {
   backendHost : "http://localhost:8085",
   LoginServiceBaseUrl : "http://localhost:8081",
   CustomerServiceBaseUrl : "http://localhost:8082",
+  apiBaseUrl: 'http://localhost:8088/api'
 };
 
 /*

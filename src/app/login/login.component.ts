@@ -81,7 +81,7 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
     this.errorMessage = null;
 
-  window.location.href = 'http://localhost:8081/auth/login';
+  window.location.href = 'http://localhost:8090/auth/login';
   }
 
   private handleKeycloakCallback(): void {

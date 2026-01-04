@@ -40,6 +40,9 @@ export class AuthService {
   );
   user$ = this.userSubject.asObservable();
 
+  // Base URL commune via le Gateway
+  private readonly authApiUrl = `${environment.apiBaseUrl}/auth`;
+
   constructor(private http: HttpClient, private router: Router) {}
 
   private loadUserFromStorage(): User | null {
@@ -71,7 +74,7 @@ export class AuthService {
     console.log('📡 Calling /auth/oauth2/user-info with credentials...');
     
     return this.http.get<any>(
-      `${environment.LoginServiceBaseUrl}/auth/oauth2/user-info`,
+      `${this.authApiUrl}/oauth2/user-info`,
       {
         withCredentials: true  // ← CRUCIAL: Envoie les cookies de session
       }
@@ -120,7 +123,7 @@ export class AuthService {
     
     return this.http
       .post<User>(
-        `${environment.LoginServiceBaseUrl}/auth/login`,
+        `${this.authApiUrl}/login`,
         {
           username: email,
           password,
@@ -148,7 +151,7 @@ export class AuthService {
     console.log('📝 Registering new user...');
     
     return this.http.post<RegisterResponse>(
-      `${environment.LoginServiceBaseUrl}/auth/register`,
+      `${this.authApiUrl}/register`,
       request,
       { withCredentials: true }
     ).pipe(
