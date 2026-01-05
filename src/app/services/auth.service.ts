@@ -177,17 +177,95 @@ export class AuthService {
     return localStorage.getItem('id') || 'anonymous';
   }
 
+  /**
+   * ✅ LOGOUT AMÉLIORÉ - Efface tout et déconnecte de Keycloak si nécessaire
+   */
   logout(): void {
     console.log('🚪 Logging out...');
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    localStorage.removeItem('email');
-    localStorage.removeItem('id');
-    localStorage.removeItem('firstName');
-    localStorage.removeItem('lastName');
-    localStorage.removeItem('roles');
+    
+    const authMethod = localStorage.getItem('authMethod');
+    
+    // 1. Nettoyer TOUT le localStorage (pas seulement nos clés)
+    this.clearAllLocalStorage();
+    
+    // 2. Nettoyer le sessionStorage aussi
+    sessionStorage.clear();
+    
+    // 3. Réinitialiser le subject
     this.userSubject.next(null);
-    this.router.navigate(['/login']);
+    
+    // 4. Si authentifié via Keycloak, appeler le endpoint de logout backend
+    if (authMethod === 'keycloak') {
+      console.log('🔐 Keycloak logout detected, calling backend logout...');
+      
+      // Appel au backend pour nettoyer la session Spring
+      this.http.post(
+        `${this.authApiUrl}/logout`,
+        {},
+        { withCredentials: true }
+      ).pipe(
+        tap(error => {
+          console.warn('⚠️ Backend logout failed (may be expected):', error);
+          return [];
+        })
+      ).subscribe({
+        complete: () => {
+          console.log('✓ Backend logout completed');
+          this.redirectToKeycloakLogout();
+        }
+      });
+    } else {
+      // Logout classique - redirection simple
+      this.router.navigate(['/login']);
+    }
+  }
+
+  /**
+   * ✅ Nettoie TOUT le localStorage de manière agressive
+   */
+  private clearAllLocalStorage(): void {
+    // Liste de toutes les clés possibles (ajoutez-en si nécessaire)
+    const keysToRemove = [
+      'token',
+      'username',
+      'email',
+      'id',
+      'firstName',
+      'lastName',
+      'roles',
+      'authMethod',
+      'user',
+      'authToken',
+      'sessionId',
+      'refreshToken'
+    ];
+    
+    // Supprimer chaque clé explicitement
+    keysToRemove.forEach(key => {
+      localStorage.removeItem(key);
+      console.log(`🗑️ Removed: ${key}`);
+    });
+    
+    // Optionnel: Clear TOUT (décommentez si nécessaire)
+    // localStorage.clear();
+    
+    console.log('✓ All localStorage cleared');
+  }
+
+  /**
+   * ✅ Redirige vers la page de logout Keycloak
+   */
+  private redirectToKeycloakLogout(): void {
+    // URL de redirection après logout
+    const redirectUri = encodeURIComponent(window.location.origin + '/login');
+    
+    // URL de logout Keycloak (via votre backend)
+    const keycloakLogoutUrl = `${this.authApiUrl}/keycloak-logout?redirect_uri=${redirectUri}`;
+    
+    console.log('🔐 Redirecting to Keycloak logout:', keycloakLogoutUrl);
+    
+    // Redirection complète (efface tout le contexte navigateur)
+    window.location.href = keycloakLogoutUrl;
   }
 
   isLoggedIn(): boolean {

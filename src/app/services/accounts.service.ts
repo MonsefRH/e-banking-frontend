@@ -109,7 +109,7 @@ export class AccountsService {
   }
 
   public getAccountsByUsername(username: string): Observable<any[]> {
-    return this.http.get<any[]>(`${environment.backendHost}/customers/accounts/${username}`);
+    return this.http.get<any[]>(`${environment.apiBaseUrl}/customers/accounts/${username}`);
   }
 
   public modifyCustomer(request: ModifyCustomerRequest): Observable<any> {

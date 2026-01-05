@@ -67,10 +67,10 @@ export class CustomerService {
   }
     createCustomer(customerData: CreateCustomerRequest): Observable<any> {
       console.log("helllo :"+customerData.name,customerData.balance,customerData.passwd)
-    return this.http.post(environment.backendHost+"/api/create-customer",customerData);
+    return this.http.post(this.baseUrl+"/customers",customerData);
   }
   public deleteCustomer(id: number){
-    return this.http.delete(environment.backendHost+""+id);
+    return this.http.delete(this.baseUrl+""+id);
   }
   // Get customer by ID (for admin purposes)
   getCustomerById(id: string): Observable<Customer> {
