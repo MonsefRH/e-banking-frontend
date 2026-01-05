@@ -34,7 +34,7 @@
     <!-- Show name and email -->
     <div class="text-sm" *ngIf="user$ | async as user">
       <div class="font-medium">
-        {{ user.firstName || user.username }}
+        {{ user.firstName || user.lastName }}
       </div>
       <div class="text-gray-500">{{ user.email || "" }}</div>
     </div>

@@ -25,14 +25,14 @@ export interface CreateCustomerRequest {
 })
 export class CustomerService {
 
-  private readonly baseUrl = environment.CustomerServiceBaseUrl;
+  private readonly baseUrl = environment.apiBaseUrl;
   private customerSubject = new BehaviorSubject<Customer | null>(null);
   public customer$ = this.customerSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
   public getCustomers():Observable<Customer[]>{
-    return this.http.get<Customer[]>(environment.backendHost+"/customers")
+    return this.http.get<Customer[]>(this.baseUrl+"/customers")
   }
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('authToken'); // Adjust based on your auth implementation
@@ -58,7 +58,7 @@ export class CustomerService {
 
   // Update customer profile
   updateCustomer(customerData: CustomerUpdateRequest): Observable<Customer> {
-    return this.http.put<Customer>(`${this.baseUrl}/customers/`, customerData, {
+    return this.http.put<Customer>(`${this.baseUrl}`, customerData, {
       headers: this.getAuthHeaders()
     }).pipe(
       tap(customer => this.customerSubject.next(customer)),
@@ -67,14 +67,14 @@ export class CustomerService {
   }
     createCustomer(customerData: CreateCustomerRequest): Observable<any> {
       console.log("helllo :"+customerData.name,customerData.balance,customerData.passwd)
-    return this.http.post(environment.backendHost+"/api/create-customer",customerData);
+    return this.http.post(this.baseUrl+"/customers",customerData);
   }
   public deleteCustomer(id: number){
-    return this.http.delete(environment.backendHost+"/customers/"+id);
+    return this.http.delete(this.baseUrl+""+id);
   }
   // Get customer by ID (for admin purposes)
   getCustomerById(id: string): Observable<Customer> {
-    return this.http.get<Customer>(`${this.baseUrl}/customers/${id}`, {
+    return this.http.get<Customer>(`${this.baseUrl}${id}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       catchError(this.handleError)

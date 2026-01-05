@@ -1,21 +1,25 @@
 // models/customer.model.ts
-export interface BankAccount {
-  id: string;
-  balance: number;
-  createdAt: Date;
-  currency: string;
-  status: string;
-  type: string;
-}
-
+// model/customer.model.ts
 export interface Customer {
-  id: string;
+  id: number;
   name: string;
   email: string;
-  stripeCustomerId: string;
-  bankAccounts: BankAccount[];
-  createdAt?: Date;
-  updatedAt?: Date;
+  password?: string;
+  phone?: string;
+  address?: string;
+  cin?: string;
+  dateInscription?: string;
+  roles?: string[];
+  bankAccounts?: BankAccount[]; // ⚠️ Si votre backend ne le retourne pas, c'est normal
+}
+
+export interface BankAccount {
+  id: string;
+  type: string;
+  balance: number;
+  currency: string;
+  status: string;
+  createdAt: string;
 }
 
 export interface CustomerUpdateRequest {
