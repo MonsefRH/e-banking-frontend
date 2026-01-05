@@ -23,12 +23,12 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   // Computed properties
   get totalAccounts(): number {
-    return this.customer?.bankAccounts?.length || 0;
+    return this.customer?.account_number || 0;
   }
 
   get totalBalance(): number {
-    if (!this.customer?.bankAccounts) return 0;
-    return this.customer.bankAccounts.reduce((sum, account) => sum + (account.balance || 0), 0);
+    if (!this.customer?.account_number) return 0;
+    return this.customer.balance || 0;
   }
 
   get hasAccounts(): boolean {

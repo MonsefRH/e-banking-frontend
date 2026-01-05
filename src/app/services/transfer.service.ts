@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
+import { environment } from 'src/environments/environment';
 
 export interface TransactionRequest {
     senderaccountId:string;
@@ -24,7 +25,8 @@ export interface AccountOperation {
   providedIn: 'root'
 })
 export class TransfersService {
-  private apiUrl = 'http://localhost:8085';
+  // private apiUrl = 'http://localhost:8085';
+  private apiUrl = environment.apiBaseUrl;
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 

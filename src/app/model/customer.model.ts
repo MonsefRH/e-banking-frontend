@@ -11,6 +11,8 @@ export interface Customer {
   dateInscription?: string;
   roles?: string[];
   bankAccounts?: BankAccount[]; // ⚠️ Si votre backend ne le retourne pas, c'est normal
+  balance?:number;
+  account_number?:number;
 }
 
 export interface BankAccount {
