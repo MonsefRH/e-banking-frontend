@@ -60,15 +60,15 @@ constructor(
   const clientData: CreateCustomerRequest = {
     name: this.clientForm.value.fullName,
     email: this.clientForm.value.email,
-    // phone: this.clientForm.value.phone,
-    // cin: this.clientForm.value.cin,
-    // dob: this.clientForm.value.dob,
-    // address: this.clientForm.value.address,
-    // accountType: this.clientForm.value.accountType,
-     balance: this.clientForm.value.initialBalance,
-    passwd: this.clientForm.value.password
+    phone: this.clientForm.value.phone,
+    cin: this.clientForm.value.cin,
+    dateInsc: this.clientForm.value.dob,
+    address: this.clientForm.value.address,
+    accountType: this.clientForm.value.accountType,
+    initialBalance: this.clientForm.value.initialBalance,
+    password : this.clientForm.value.password
   };
-  console.log("helllo zaba :"+clientData.name,clientData.balance,clientData.passwd)
+  console.log("helllo from agent home :"+clientData.name,clientData.password )
 
   this.customerService.createCustomer(clientData).subscribe({
     next: () => {

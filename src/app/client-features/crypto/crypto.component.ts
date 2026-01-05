@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnI
 import { Subject, Subscription, of } from 'rxjs';
 import { catchError, takeUntil } from 'rxjs/operators';
 import { CoinGeckoService, CryptoPrice } from '@/services/coingecko.service';
-import { Chart } from 'chart.js/auto';
+import  Chart  from 'chart.js/auto';
 
 interface CryptoHolding {
   symbol: string;

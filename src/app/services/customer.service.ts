@@ -10,14 +10,13 @@ import { environment } from 'src/environments/environment';
 export interface CreateCustomerRequest {
   name: string;
   email: string;
-  passwd: string;
-  balance:number;
-  // phone: string;
-  // cin: string;
-  // dob: string;
-  // address: string;
-  // accountType: string;
-  // initialBalance: number;
+  password: string;
+  phone: string;
+  cin: string;
+  dateInsc: string;
+  address: string;
+  accountType: string;
+  initialBalance: number;
 }
 
 @Injectable({
@@ -66,8 +65,8 @@ export class CustomerService {
     );
   }
     createCustomer(customerData: CreateCustomerRequest): Observable<any> {
-      console.log("helllo :"+customerData.name,customerData.balance,customerData.passwd)
-    return this.http.post(this.baseUrl+"/customers",customerData);
+      console.log("helllo :"+customerData.name,customerData.password )
+    return this.http.post(this.baseUrl+"/customers/create-client",customerData);
   }
   public deleteCustomer(id: number){
     return this.http.delete(this.baseUrl+""+id);
