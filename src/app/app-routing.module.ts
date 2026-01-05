@@ -29,7 +29,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'login/failed', component: LoginFailedComponent },
   { path: 'login/callback', component: CallbackComponent },
-  { path: 'register', component: RegistrationComponent },  
+  { path: 'register', component: RegistrationComponent },
+  //  { path: 'crypto-test', component: CryptoComponent },
   {
     path: 'agent',
     component: AgentComponent,
@@ -151,6 +152,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         data: { roles: ['CLIENT'] },
       },
+
     ],
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
