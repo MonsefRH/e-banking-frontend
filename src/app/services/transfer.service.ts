@@ -32,11 +32,11 @@ export class TransfersService {
 
   SubmitTransaction(o: TransactionRequest): Observable<any> {
     console.log("submit request: "+o.receiveraccountId,o.senderaccountId,o.amount,o.description);
-    return this.http.post<any>(`${this.apiUrl}/api/transfer`, o);
+    return this.http.post<any>(`${this.apiUrl}/transactions/transfer`, o);
   }
 
   getHistory(): Observable<AccountOperation[]> {
     const username = this.auth.getUsername();
-    return this.http.get<AccountOperation[]>(`${this.apiUrl}/history/${username}`);
+    return this.http.get<AccountOperation[]>(`${this.apiUrl}/accounts/history/${username}`);
   }
 }
