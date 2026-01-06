@@ -37,6 +37,6 @@ export class TransfersService {
 
   getHistory(): Observable<AccountOperation[]> {
     const username = this.auth.getUsername();
-    return this.http.get<AccountOperation[]>(`${this.apiUrl}/accounts/history/${username}`);
+    return this.http.get<AccountOperation[]>(`${this.apiUrl}/transactions/today`);
   }
 }
