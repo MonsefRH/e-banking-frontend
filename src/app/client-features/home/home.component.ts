@@ -169,10 +169,7 @@ export class HomeComponent implements OnInit {
       this.customerName = custome.email;
       this.customerName = custome.name || custome.email || 'Utilisateur';  // Fallback
       console.log('Customer:', custome);
-      if (custome.bankAccounts && custome.bankAccounts.length > 0) {
-        console.log('Balance:', custome.bankAccounts[0].balance);
-        this.balance = custome.bankAccounts?.[0]?.balance || 0;  // Safe access avec ?
-      }
+      this.balance = custome.balance || 0;
       this.updateFormWithCustomerData(custome);
       this.loading = false;
     },
